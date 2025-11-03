@@ -1,17 +1,21 @@
 
 using DomanLayer.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using PersistenceLayer;
 using PersistenceLayer.Data;
 using PersistenceLayer.Data.PersistenceLayer.Data;
+using PersistenceLayer.Repositoreis;
+using ServiceApstractionLayer;
+using ServiceLayer;
 
 namespace StoreAPi
 {
     public class Program
     {
-        public static string DefaultConnection { get; private set; }
+        public static string? DefaultConnection { get; private set; }
 
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -28,13 +32,20 @@ namespace StoreAPi
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));   
             });
 
-            builder.Services.AddScoped<IDataSeeding, DataSeeding>();
+             builder.Services.AddScoped<IDataSeed, DataSeeding>();
+             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+             builder.Services.AddAutoMapper((x)=> { },typeof(ServiceLayerAssemblyRefrence).Assembly);
+            // builder.Services.AddAutoMapper(typeof(ServiceLayerAssemblyRefrence).Assembly);
+             builder.Services.AddScoped<IServiceManeger, ServiceManeger>();
+
 
             var app = builder.Build();
 
             using var scop= app.Services.CreateScope();
-            var SeedOpj = scop.ServiceProvider.GetRequiredService<IDataSeeding>();
-            SeedOpj.DataSeed();
+            var SeedOpj = scop.ServiceProvider.GetRequiredService<DomanLayer.Contracts.IDataSeed>();
+            await SeedOpj.DataSeedAsync();
+
+
 
             //Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

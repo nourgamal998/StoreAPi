@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace DomanLayer.Contracts
 {
-    public interface IDataSeeding 
+    public interface IDataSeed
     {
-        void DataSeed();
+      //  Task DataSeedAsync();
+        Task DataSeedAsync
+            ();
     }
 }
