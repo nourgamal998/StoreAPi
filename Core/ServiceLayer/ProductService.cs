@@ -7,6 +7,7 @@ using AutoMapper;
 using DomanLayer.Contracts;
 using DomanLayer.Models;
 using ServiceApstractionLayer;
+using ServiceLayer.Specifications;
 using Shared.DTOS;
 namespace ServiceLayer
 {
@@ -14,12 +15,16 @@ namespace ServiceLayer
     {
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
-            var products = await _unitOfWork.GetRepository<Product, int>().GetAllAsync();
+            //create object from repository
+            var specs=new ProductWithBrandAndTypeSpecifications();
+
+            var products = await _unitOfWork.GetRepository<Product, int>().GetAllAsync(specs);
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
         public async Task<ProductDto> GetProductsByIdAsync(int id)
         {
+            var specs = new ProductWithBrandAndTypeSpecifications(id);
             var product = await _unitOfWork.GetRepository<Product, int>().GetByIdAsync(id);
             return _mapper.Map<ProductDto>(product);
         }

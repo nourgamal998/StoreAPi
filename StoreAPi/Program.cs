@@ -58,7 +58,7 @@ namespace StoreAPi
 
             app.UseAuthorization();
 
-
+            app.UseStaticFiles();
             app.MapControllers();
 
             app.Run();

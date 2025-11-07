@@ -29,5 +29,18 @@ namespace PersistenceLayer.Repositoreis
 
         public void Update(TEntity entity)
              => _DbContect.Set<TEntity>().Update(entity);
+
+        #region with specifications
+        public async Task<IEnumerable<TEntity>>GetAllAsync(ISpecifications<TEntity, Tkey> specifications) 
+        {
+           return await SpecificationEvaluator.CreateQuery(_DbContect.Set<TEntity>(), specifications).ToListAsync();
+
+        }
+        public async Task<TEntity?> GetByIdAsync(ISpecifications<TEntity, Tkey> specifications) 
+        {
+            return await SpecificationEvaluator.CreateQuery(_DbContect.Set<TEntity>(), specifications).FirstOrDefaultAsync();
+
+        }
+        #endregion
     }
 }
