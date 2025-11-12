@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceApstractionLayer
+namespace Shared
 {
-    public class IServiceManager 
+    public enum ProductSortingOptions
     {
-        public IProductService ProductService { get; }
+        NameAsc=1,
+        NameDesc,
+        PriceAsc,
+        PriceDesc
     }
 }

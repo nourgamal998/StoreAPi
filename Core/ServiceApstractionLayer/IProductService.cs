@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomanLayer.Models;
+﻿using Shared;
 using Shared.DTOS;
 
 namespace ServiceApstractionLayer
 {
-    //public  interface IProductService
-    //{
-    //    Task<IEnumerable<Product>> GetAllProductsAsync();
-    //    Task<ProductDto<Product>> GetProductsByIdAsync();
-    //    Task<IEnumerable<TypeDto>> GetAllTypesAsync();
-    //    Task<IEnumerable<BrandDto>> GetBrandsAsync();
-
-    //}
-    public interface IProductService
-    {
-        Task<IEnumerable<ProductDto>> GetAllProductsAsync();
+ 
+          public interface IProductService
+   
+          {
+        //get all products
+        Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductQueryParams queryParams); 
+        //get product by id 
         Task<ProductDto> GetProductsByIdAsync(int Id);
+        //get all types 
         Task<IEnumerable<TypeDto>> GetAllTypesAsync();
+        //get all brands
         Task<IEnumerable<BrandDto>> GetBrandsAsync();
-        Task GetProductByIdAsync(int id);
-        Task GetAllBrandsAsync();
-    }
+
+        //Task GetProductByIdAsync(int id);
+        //Task GetAllBrandsAsync();
+          }
 }

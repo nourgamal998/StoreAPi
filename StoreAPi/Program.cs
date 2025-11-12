@@ -35,14 +35,12 @@ namespace StoreAPi
              builder.Services.AddScoped<IDataSeed, DataSeeding>();
              builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
              builder.Services.AddAutoMapper((x)=> { },typeof(ServiceLayerAssemblyRefrence).Assembly);
-            // builder.Services.AddAutoMapper(typeof(ServiceLayerAssemblyRefrence).Assembly);
-             builder.Services.AddScoped<IServiceManeger, ServiceManeger>();
-
+             builder.Services.AddScoped<IServiceManager, ServiceManeger>();
 
             var app = builder.Build();
 
-            using var scop= app.Services.CreateScope();
-            var SeedOpj = scop.ServiceProvider.GetRequiredService<DomanLayer.Contracts.IDataSeed>();
+            var scop= app.Services.CreateScope();
+            var SeedOpj = scop.ServiceProvider.GetRequiredService<IDataSeed>();
             await SeedOpj.DataSeedAsync();
 
 

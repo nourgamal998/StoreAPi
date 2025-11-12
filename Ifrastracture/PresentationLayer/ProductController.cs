@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceApstractionLayer;
+using Shared;
 using Shared.DTOS;
 
 
@@ -12,34 +8,36 @@ namespace PresentationLayer
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class ProductController(IServiceManeger _serviceManeger) : ControllerBase
+    public class ProductController(IServiceManager _serviceManager) : ControllerBase
     {
         [HttpGet]//Get All Products
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProductsAsync()
+        public async Task<ActionResult<IEnumerable<ProductDto>>>GetAllProducts
+                                       ([FromQuery]ProductQueryParams queryParams)
         {
-            var products = await _serviceManeger.ProductService.GetAllProductsAsync();
-            return Ok(products);
+            var products = await _serviceManager.ProductService.GetAllProductsAsync(queryParams);
+                return Ok(products);
+            
         }
 
-        [HttpGet("{id}")] //Get Product By Id
+        [HttpGet("{Id}")] //Get Product By Id
+                         //get :: baseurl/api/Products/4
         public async Task<ActionResult<ProductDto>> GetProducstByIdAsync(int id)
         {
-            var product = await _serviceManeger.ProductService.GetProductsByIdAsync(id);
-
-            return Ok(product);
+            var Product = await _serviceManager.ProductService.GetProductsByIdAsync(id);
+            return Ok(Product);
         }
 
         [HttpGet("Brands")]
         public async Task<ActionResult<BrandDto>> GetAllBrands()
         {
-            var brands = await _serviceManeger.ProductService.GetBrandsAsync();
+            var brands = await _serviceManager.ProductService.GetBrandsAsync();
             return Ok(brands);
         }
 
         [HttpGet("Types")]
         public async Task<ActionResult<TypeDto>> GetAllTypes()
         {
-            var types = await _serviceManeger.ProductService.GetAllTypesAsync();
+            var types = await _serviceManager.ProductService.GetAllTypesAsync();
             return Ok(types);
         }
 
