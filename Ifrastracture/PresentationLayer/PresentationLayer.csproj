@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\ServiceApstractionLayer\ServiceApstractionLayer.csproj" />
+    <ProjectReference Include="..\..\Core\ServiceLayer\ServiceLayer.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

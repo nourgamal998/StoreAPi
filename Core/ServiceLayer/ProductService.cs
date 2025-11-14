@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using DomanLayer.Contracts;
 using DomanLayer.Models;
 using ServiceApstractionLayer;
@@ -27,15 +22,20 @@ namespace ServiceLayer .Services
             return _mapper.Map<IEnumerable<BrandDto>>(brands);
         }
         #endregion
-        public interface IProductService;
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync
+        //public interface IProductService;
+        public async Task<PaginatedResult<ProductDto>> GetAllProductsAsync
             (ProductQueryParams queryParams )
         {
+            var repo = _unitOfWork.GetRepository<Product, int>();
             //create object from repository
             var specs=new ProductWithBrandAndTypeSpecifications(queryParams);
+            var products = await repo.GetAsync(specs);
+            var mappedproducts= _mapper.Map<IEnumerable<ProductDto>>(products);
+            var countSpecs = new ProductCountSpecifications(queryParams);
+            var totalCount = await repo.CountAsync(countSpecs);
 
-            var products = await _unitOfWork.GetRepository<Product, int>().GetAllAsync(specs);
-            return _mapper.Map<IEnumerable<ProductDto>>(products);
+            return new PaginatedResult<ProductDto>(queryParams.PageIndex,queryParams.PageSize
+                                                                        , totalCount, mappedproducts);
 
         }
 
@@ -46,15 +46,6 @@ namespace ServiceLayer .Services
             return _mapper.Map<ProductDto>(product);
         }
 
-        //public Task GetProductByIdAsync(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task GetAllBrandsAsync()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
 

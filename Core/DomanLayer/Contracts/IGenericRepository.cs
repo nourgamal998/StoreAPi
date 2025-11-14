@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomanLayer.Models;
+﻿using DomanLayer.Models;
 
 namespace DomanLayer.Contracts
 {
@@ -19,7 +14,11 @@ namespace DomanLayer.Contracts
 
         Task<TEntity?> GetByIdAsync(ISpecifications<TEntity,Tkey> specifications);
 
-        Task<IEnumerable<TEntity>> GetAllAsync(ISpecifications<TEntity, Tkey> specifications);
+        Task<IEnumerable<TEntity>> GetAsync(ISpecifications<TEntity, Tkey> specifications);
+
+        Task<int> CountAsync(ISpecifications<TEntity, Tkey> specifications);
+       
+
         #endregion
     }
 }

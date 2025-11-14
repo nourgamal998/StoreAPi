@@ -31,7 +31,7 @@ namespace PersistenceLayer.Repositoreis
              => _DbContect.Set<TEntity>().Update(entity);
 
         #region with specifications
-        public async Task<IEnumerable<TEntity>> GetAllAsync(ISpecifications<TEntity, Tkey> specifications)
+        public async Task<IEnumerable<TEntity>> GetAsync(ISpecifications<TEntity, Tkey> specifications)
         {
             return await SpecificationEvaluator.CreateQuery(_DbContect.Set<TEntity>(), specifications).ToListAsync();
         }
@@ -39,6 +39,10 @@ namespace PersistenceLayer.Repositoreis
         {
             return await SpecificationEvaluator.CreateQuery(_DbContect.Set<TEntity>(), specifications).FirstOrDefaultAsync();
 
+        }
+        public async Task<int> CountAsync(ISpecifications<TEntity, Tkey> specifications)
+        {
+            return await SpecificationEvaluator.CreateQuery(_DbContect.Set<TEntity>(), specifications).CountAsync();
         }
         #endregion
     }

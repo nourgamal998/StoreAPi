@@ -8,7 +8,7 @@ namespace ServiceApstractionLayer
    
           {
         //get all products
-        Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductQueryParams queryParams); 
+        Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParams queryParams); 
         //get product by id 
         Task<ProductDto> GetProductsByIdAsync(int Id);
         //get all types 

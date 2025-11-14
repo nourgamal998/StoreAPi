@@ -30,11 +30,11 @@ namespace PersistenceLayer
                 query = Specifications.IncludeExpressions.Aggregate(query, (current, IncludeExpressions) 
                                                                  => current.Include(IncludeExpressions));
 
-            #endregion
+# endregion 
 
             #region pagination
 
-             if (Specifications.IsPaginated)
+            if (Specifications.IsPaginated)
                 query = query.Skip(Specifications.Skip).Take(Specifications.Take);
 
 

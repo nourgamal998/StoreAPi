@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\ServiceApstractionLayer\ServiceApstractionLayer.csproj" />
     <ProjectReference Include="..\..\Core\ServiceLayer\ServiceLayer.csproj" />
   </ItemGroup>
 

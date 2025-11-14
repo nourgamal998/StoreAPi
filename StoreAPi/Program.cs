@@ -1,7 +1,5 @@
-
 using DomanLayer.Contracts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using PersistenceLayer;
 using PersistenceLayer.Data;
 using PersistenceLayer.Data.PersistenceLayer.Data;
