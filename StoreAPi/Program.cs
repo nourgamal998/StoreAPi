@@ -1,11 +1,16 @@
 using DomanLayer.Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens.Experimental;
 using PersistenceLayer;
 using PersistenceLayer.Data;
 using PersistenceLayer.Data.PersistenceLayer.Data;
 using PersistenceLayer.Repositoreis;
 using ServiceApstractionLayer;
 using ServiceLayer;
+using StoreAPi.CustomMiddleweres;
+using Shared.ErrorModels;
+using StoreAPi.Factories;
 
 namespace StoreAPi
 {
@@ -25,25 +30,38 @@ namespace StoreAPi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<StoreDbContext>(options => 
+            builder.Services.AddDbContext<StoreDbContext>(options =>
             {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));   
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            #region Register User-Defined Services
+            builder.Services.AddScoped<IDataSeed, DataSeeding>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            #region Mapping Register 
+            builder.Services.AddAutoMapper((x) => { }, typeof(ServiceLayerAssemblyRefrence).Assembly);
+            builder.Services.AddScoped<IServiceManager, ServiceManeger>();
 
-             builder.Services.AddScoped<IDataSeed, DataSeeding>();
-             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-             builder.Services.AddAutoMapper((x)=> { },typeof(ServiceLayerAssemblyRefrence).Assembly);
-             builder.Services.AddScoped<IServiceManager, ServiceManeger>();
+
+
+            builder.Services.Configure<ApiBehaviorOptions>((Options) =>
+            {
+                Options.InvalidModelStateResponseFactory = ApiResponseFactory.GenerateApiValidationResponse;
+            }); 
+
+            #endregion
+            #endregion
 
             var app = builder.Build();
+            
 
-            var scop= app.Services.CreateScope();
+            #region Seed Database
+            var scop = app.Services.CreateScope();
             var SeedOpj = scop.ServiceProvider.GetRequiredService<IDataSeed>();
             await SeedOpj.DataSeedAsync();
+            #endregion
 
-
-
-            //Configure the HTTP request pipeline.
+            #region //Configure the HTTP request pipeline.
+            app.UseMiddleware<CustomExeptionHandlerMiddlewere>();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -58,6 +76,7 @@ namespace StoreAPi
             app.MapControllers();
 
             app.Run();
+            #endregion
         }
     }
 }

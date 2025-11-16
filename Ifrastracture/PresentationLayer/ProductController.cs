@@ -10,7 +10,8 @@ namespace PresentationLayer
     [Route("api/[Controller]")]
     public class ProductController(IServiceManager _serviceManager) : ControllerBase
     {
-        [HttpGet]//Get All Products
+        //Get All Products
+        [HttpGet]  //Get :: BaseUrl/api/Products
         public async Task<ActionResult<PaginatedResult<ProductDto>>>GetAllProducts
                                        ([FromQuery]ProductQueryParams queryParams)
         {

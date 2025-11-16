@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DomanLayer.Contracts;
+using DomanLayer.Exeptions;
 using DomanLayer.Models;
 using ServiceApstractionLayer;
 using ServiceLayer.Specifications;
@@ -43,6 +44,7 @@ namespace ServiceLayer .Services
         {
             var specs = new ProductWithBrandAndTypeSpecifications(id);
             var product = await _unitOfWork.GetRepository<Product, int>().GetByIdAsync(id);
+            if ( product is null) throw new ProductNotFoundExeption(id);
             return _mapper.Map<ProductDto>(product);
         }
 
