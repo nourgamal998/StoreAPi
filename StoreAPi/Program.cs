@@ -11,6 +11,7 @@ using ServiceLayer;
 using StoreAPi.CustomMiddleweres;
 using Shared.ErrorModels;
 using StoreAPi.Factories;
+using StoreAPi.Extentions;
 
 namespace StoreAPi
 {
@@ -22,50 +23,33 @@ namespace StoreAPi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services to the DI container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at
-            // https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerServices();
 
-            builder.Services.AddDbContext<StoreDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
+
             #region Register User-Defined Services
-            builder.Services.AddScoped<IDataSeed, DataSeeding>();
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            #region Mapping Register 
-            builder.Services.AddAutoMapper((x) => { }, typeof(ServiceLayerAssemblyRefrence).Assembly);
-            builder.Services.AddScoped<IServiceManager, ServiceManeger>();
+            builder.Services.AddInfraStractureServices(builder.Configuration); 
+            builder.Services.AddApplicationServices();
 
 
-
-            builder.Services.Configure<ApiBehaviorOptions>((Options) =>
-            {
-                Options.InvalidModelStateResponseFactory = ApiResponseFactory.GenerateApiValidationResponse;
-            }); 
+            builder.Services.AddWebApplicationServices();
 
             #endregion
-            #endregion
+
 
             var app = builder.Build();
-            
+            await app.SeedDatabaseAsync();
 
-            #region Seed Database
-            var scop = app.Services.CreateScope();
-            var SeedOpj = scop.ServiceProvider.GetRequiredService<IDataSeed>();
-            await SeedOpj.DataSeedAsync();
-            #endregion
 
             #region //Configure the HTTP request pipeline.
-            app.UseMiddleware<CustomExeptionHandlerMiddlewere>();
+
+            app.UseCustomExeptionMiddleWare();
+
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerMiddleware();
             }
 
             app.UseHttpsRedirection();

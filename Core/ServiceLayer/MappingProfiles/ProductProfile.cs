@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using DomanLayer.Models;
-using Shared.DTOS;
+using DomanLayer.Models.ProductModels;
+using Shared.DTOS.ProductDTOS;
 
 namespace ServiceLayer.MappingProfiles
 {

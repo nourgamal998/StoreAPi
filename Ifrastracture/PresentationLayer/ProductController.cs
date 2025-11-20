@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceApstractionLayer;
 using Shared;
-using Shared.DTOS;
+using Shared.DTOS.ProductDTOS;
 
 
 namespace PresentationLayer

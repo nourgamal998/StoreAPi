@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomanLayer.Models;
 
-namespace DomanLayer.Models
+namespace Shared.DTOS.ProductDTOS
 {
-    public class Product : BaseEntity<int>
+    public class ProductDto
     {
+        public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string PictureUrl { get; set; } = null!;
         public decimal Price { get; set; }
+        public string BrandName { get; set; } = null!;
+        public string TypeName { get; set; } = null!;
 
-        public int BrandId {get ; set; }
-        public ProductBrand ProductBrand { get; set; }
 
-        public int TypeId {get; set; }
-        public ProductType ProductType { get; set; }
+
 
     }
 }

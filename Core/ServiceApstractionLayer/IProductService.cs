@@ -1,10 +1,10 @@
 ﻿using Shared;
-using Shared.DTOS;
+using Shared.DTOS.ProductDTOS;
 
 namespace ServiceApstractionLayer
 {
- 
-          public interface IProductService
+
+    public interface IProductService
    
           {
         //get all products

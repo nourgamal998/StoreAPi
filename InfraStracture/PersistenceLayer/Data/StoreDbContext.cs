@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using DomanLayer.Models;
+using DomanLayer.Models.ProductModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace PersistenceLayer.Data

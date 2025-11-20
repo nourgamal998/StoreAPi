@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DomanLayer.Contracts;
-using DomanLayer.Models;
+using DomanLayer.Models.ProductModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using PersistenceLayer.Data.PersistenceLayer.Data;

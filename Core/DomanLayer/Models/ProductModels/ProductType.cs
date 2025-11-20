@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.DTOS
+namespace DomanLayer.Models.ProductModels
 {
-    public class BrandDto
+    public class ProductType : BaseEntity<int>
     {
-        public int Id { get; set; }
         public string Name { get; set; } = null!;
     }
 }

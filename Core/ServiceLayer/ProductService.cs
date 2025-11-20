@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using DomanLayer.Contracts;
 using DomanLayer.Exeptions;
-using DomanLayer.Models;
+using DomanLayer.Models.ProductModels;
 using ServiceApstractionLayer;
 using ServiceLayer.Specifications;
 using Shared;
-using Shared.DTOS;
-namespace ServiceLayer .Services
+using Shared.DTOS.ProductDTOS;
+namespace ServiceLayer.Services
 {
     public class ProductService(IUnitOfWork _unitOfWork, IMapper _mapper) : IProductService
     {
