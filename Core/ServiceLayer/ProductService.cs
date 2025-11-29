@@ -35,7 +35,7 @@ namespace ServiceLayer.Services
             var countSpecs = new ProductCountSpecifications(queryParams);
             var totalCount = await repo.CountAsync(countSpecs);
 
-            return new PaginatedResult<ProductDto>(queryParams.PageIndex,queryParams.PageSize
+            return new PaginatedResult<ProductDto>(queryParams.PageIndex,queryParams.pageSize
                                                                         , totalCount, mappedproducts);
 
         }

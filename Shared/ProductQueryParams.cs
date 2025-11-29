@@ -22,9 +22,8 @@ namespace Shared
         private const int MaxPageSize = 10;
 
         public int PageIndex { get; set; } = 1;
-
-        private int pageSize;
-        public int PageSize
+        private int PageSize = DefaultPageSize;
+        public int pageSize
         {
             get { return pageSize; }
             set { pageSize = value > MaxPageSize ? DefaultPageSize : value; }

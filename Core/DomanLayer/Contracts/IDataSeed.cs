@@ -8,8 +8,9 @@ namespace DomanLayer.Contracts
 {
     public interface IDataSeed
     {
-      //  Task DataSeedAsync();
-        Task DataSeedAsync
-            ();
+        //  Task DataSeedAsync();
+       public Task DataSeedAsync();
+       public Task IdentityDataSeedAsync();
+
     }
 }

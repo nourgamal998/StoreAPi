@@ -10,7 +10,7 @@ using PersistenceLayer.Data.PersistenceLayer.Data;
 
 namespace PersistenceLayer.Data.Migrations
 {
-    [DbContext(typeof( _DbContext))]
+    [DbContext(typeof( DbContext))]
     [Migration("20251029030714_InitialCreate")]
     partial class InitialCreate
     {

@@ -9,7 +9,7 @@ using PersistenceLayer.Data.PersistenceLayer.Data;
 
 namespace PersistenceLayer.Data.Migrations
 {
-    [DbContext(typeof(_DbContext))]
+    [DbContext(typeof(DbContext))]
     partial class StoreDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -4,7 +4,7 @@ using Shared;
 using Shared.DTOS.ProductDTOS;
 
 
-namespace PresentationLayer
+namespace PresentationLayer.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
@@ -12,16 +12,16 @@ namespace PresentationLayer
     {
         //Get All Products
         [HttpGet]  //Get :: BaseUrl/api/Products
-        public async Task<ActionResult<PaginatedResult<ProductDto>>>GetAllProducts
-                                       ([FromQuery]ProductQueryParams queryParams)
+        public async Task<ActionResult<PaginatedResult<ProductDto>>> GetAllProducts
+                                       ([FromQuery] ProductQueryParams queryParams)
         {
             var products = await _serviceManager.ProductService.GetAllProductsAsync(queryParams);
-                return Ok(products);
-            
+            return Ok(products);
+
         }
 
         [HttpGet("{Id}")] //Get Product By Id
-                         //get :: baseurl/api/Products/4
+                          //get :: baseurl/api/Products/4
         public async Task<ActionResult<ProductDto>> GetProducstByIdAsync(int id)
         {
             var Product = await _serviceManager.ProductService.GetProductsByIdAsync(id);

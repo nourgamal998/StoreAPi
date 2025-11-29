@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace ServiceApstractionLayer
 {
-    public class IServiceManager 
+    public interface IServiceManager
     {
-        public IProductService ProductService { get; }
+ 
+            public IProductService ProductService { get; }
+            public IBasketService BasketService { get; }
+        }
     }
-}
+

@@ -40,7 +40,7 @@ namespace ServiceLayer.Specifications
             }
 
             //pagination
-            ApplyPagination(queryParams.PageSize , queryParams.PageIndex);
+            ApplyPagination(queryParams.pageSize , queryParams.PageIndex);
                 
         }
 

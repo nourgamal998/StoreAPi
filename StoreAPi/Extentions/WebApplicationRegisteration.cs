@@ -10,6 +10,7 @@ namespace StoreAPi.Extentions
             var scop = app.Services.CreateScope();
             var SeedOpj = scop.ServiceProvider.GetRequiredService<IDataSeed>();
             await SeedOpj.DataSeedAsync();
+            await SeedOpj.IdentityDataSeedAsync();
         }
 
         public static IApplicationBuilder UseCustomExeptionMiddleWare(this IApplicationBuilder app)
