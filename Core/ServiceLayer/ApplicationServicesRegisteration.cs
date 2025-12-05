@@ -10,7 +10,7 @@ namespace ServiceLayer
 {
     public static class ApplicationServicesRegisteration
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection Services) 
+        public static IServiceCollection AddApplicationServices(this IServiceCollection Services, Microsoft.Extensions.Configuration.ConfigurationManager configuration) 
         {
            Services.AddAutoMapper((x) => { }, typeof(ServiceLayerAssemblyRefrence).Assembly);
            Services.AddScoped<IServiceManager, ServiceManeger>();

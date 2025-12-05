@@ -12,38 +12,40 @@ using StoreAPi.CustomMiddleweres;
 using Shared.ErrorModels;
 using StoreAPi.Factories;
 using StoreAPi.Extentions;
+using Microsoft.Identity.Client;
+using Microsoft.AspNetCore.Identity;
+using DomanLayer.Models.Identity_models;
+using PersistenceLayer.Identity;
 
 namespace StoreAPi
 {
     public class Program
     {
-        public static string? DefaultConnection { get; private set; }
-
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the DI container.
+            //Add services to the DI container.
 
             builder.Services.AddControllers();
             builder.Services.AddSwaggerServices();
 
 
             #region Register User-Defined Services
-            builder.Services.AddInfraStractureServices(builder.Configuration); 
-            builder.Services.AddApplicationServices();
-
-
             builder.Services.AddWebApplicationServices();
+           
+            builder.Services.AddInfraStractureServices(builder.Configuration);
+
+            builder.Services.AddApplicationServices(builder.Configuration);
+
 
             #endregion
-
-
             var app = builder.Build();
             await app.SeedDatabaseAsync();
 
 
-            #region //Configure the HTTP request pipeline.
+            #region 
+            //Configure the HTTP request pipeline.
 
             app.UseCustomExeptionMiddleWare();
 

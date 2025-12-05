@@ -1,4 +1,5 @@
-﻿using DomanLayer.Exeptions;
+﻿using Azure;
+using DomanLayer.Exeptions;
 using Microsoft.AspNetCore.Http;
 using ServiceStack.Text;
 using Shared.ErrorModels;
@@ -34,22 +35,34 @@ namespace StoreAPi.CustomMiddleweres
 
         private static async Task HandleExceptionAsync(HttpContext httpcontext, Exception ex)
         {
-
-            // ste statuse code for response
-            httpcontext.Response.StatusCode = ex switch
-            {
-                NotFoundExeption => StatusCodes.Status404NotFound,
-                _ => StatusCodes.Status500InternalServerError
-
-            };
             // create response object
             var response = new ErrorToReturn()
             {
-                StatusCode = StatusCodes.Status500InternalServerError,
+                StatusCode = httpcontext.Response.StatusCode,
                 ErrorMessage = ex.Message
             };
+           
+            // set statuse code for response
+            httpcontext.Response.StatusCode = ex switch
+            {
+                NotFoundExeption => StatusCodes.Status404NotFound,
+                UnauthorizedException => StatusCodes.Status401Unauthorized,
+                BadRequestException badRequestException=> GetBadRequestErrors(badRequestException, response),
+                _ => StatusCodes.Status500InternalServerError
+
+            };
+            response.StatusCode = httpcontext.Response.StatusCode;
+
             // return object as json
             await httpcontext.Response.WriteAsJsonAsync(response);
+
+        }
+        private static int GetBadRequestErrors(BadRequestException badRequestException 
+                                              , ErrorToReturn response)
+        {
+            response.Errors = badRequestException.Errors;
+            return StatusCodes.Status400BadRequest;
+
         }
 
         private static async Task HandleNotFoundEndPointAsync(HttpContext httpcontext)

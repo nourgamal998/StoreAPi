@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ServiceApstractionLayer;
 using Shared;
 using Shared.DTOS.ProductDTOS;
@@ -8,6 +9,7 @@ namespace PresentationLayer.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
+   
     public class ProductController(IServiceManager _serviceManager) : ControllerBase
     {
         //Get All Products
@@ -20,8 +22,9 @@ namespace PresentationLayer.Controllers
 
         }
 
-        [HttpGet("{Id}")] //Get Product By Id
-                          //get :: baseurl/api/Products/4
+        //Get Product By Id
+        [HttpGet("{Id}")] //get :: baseurl/api/Products/4
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ProductDto>> GetProducstByIdAsync(int id)
         {
             var Product = await _serviceManager.ProductService.GetProductsByIdAsync(id);

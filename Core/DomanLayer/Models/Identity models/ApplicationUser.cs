@@ -11,6 +11,6 @@ namespace DomanLayer.Models.Identity_models
     public class ApplicationUser: IdentityUser
     {
         public string DisplayName { get; set; }= null!;
-        public Address? Address { get; set; }
+        public Address? UserAddress { get; set; }
     }
 }

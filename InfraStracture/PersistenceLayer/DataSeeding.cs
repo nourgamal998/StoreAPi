@@ -16,9 +16,9 @@ using PersistenceLayer.Data.PersistenceLayer.Data;
 namespace PersistenceLayer
 {
     public class DataSeeding(StoreDbContext _storeDbContext,
-        UserManager<ApplicationUser> _userManager,
-        RoleManager<IdentityRole> _roleManager)
-        : IDataSeed
+                 UserManager<ApplicationUser> _userManager,
+                 RoleManager<IdentityRole> _roleManager)
+                 : IDataSeed
     {
 
         public async Task DataSeedAsync()

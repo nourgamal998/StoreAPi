@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomanLayer.Contracts;
+﻿using DomanLayer.Contracts;
 using DomanLayer.Models.Identity_models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,9 +13,6 @@ namespace PersistenceLayer
 {
     public static class InfraStractureServiceRegisteration
     {
-        /// <summary>
-        /// /
-        /// </summary>
         private const string RedisConfigKey = "RedisConnectionString";
 
         public static IServiceCollection AddInfraStractureServices(this IServiceCollection                    Services,IConfiguration _configuration)   
@@ -47,9 +39,6 @@ namespace PersistenceLayer
             Services.AddIdentityCore<ApplicationUser>().AddRoles<IdentityRole>()
                .AddEntityFrameworkStores<StoreIdentityDbContext>();
                 
-
-
-
             return Services;
 
         }
