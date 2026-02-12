@@ -16,7 +16,7 @@ namespace PersistenceLayer.Repositoreis
         public async Task<CustomerBasket> CreatOrUpdateBasketAsync(CustomerBasket basket,TimeSpan? TimeToLive = null)
         {
            var JsonBasket = JsonSerializer.Serialize(basket);
-           var IsCreatedOrUpdated= await _database.StringSetAsync(basket.Id,JsonBasket, TimeToLive?? TimeSpan.FromDays(30));
+           var IsCreatedOrUpdated = await _database.StringSetAsync(basket.BasketId,JsonBasket, TimeToLive?? TimeSpan.FromDays(30));
 
             if (IsCreatedOrUpdated) { return basket; }
 

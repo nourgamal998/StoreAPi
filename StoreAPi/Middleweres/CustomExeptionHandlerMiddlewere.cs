@@ -26,10 +26,10 @@ namespace StoreAPi.CustomMiddleweres
                     await HandleNotFoundEndPointAsync(httpcontext);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 _logger.LogError(ex, "something went wrong");
-                await HandleExceptionAsync(httpcontext, ex);
+                await HandleExceptionAsync(httpcontext , ex );
             }
         }
 
@@ -45,7 +45,7 @@ namespace StoreAPi.CustomMiddleweres
             // set statuse code for response
             httpcontext.Response.StatusCode = ex switch
             {
-                NotFoundExeption => StatusCodes.Status404NotFound,
+                NotFoundException => StatusCodes.Status404NotFound,
                 UnauthorizedException => StatusCodes.Status401Unauthorized,
                 BadRequestException badRequestException=> GetBadRequestErrors(badRequestException, response),
                 _ => StatusCodes.Status500InternalServerError

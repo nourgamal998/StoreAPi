@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DomainLayer.Models.OrderModels;
 using DomanLayer.Contracts;
 using DomanLayer.Models.Identity_models;
 using DomanLayer.Models.ProductModels;
@@ -52,18 +53,29 @@ namespace PersistenceLayer
                 if (!_storeDbContext.Products.Any())
                 {
                     var ProductsData = File.OpenRead(@"../InfraStracture/PersistenceLayer/Data/DataSeed/products.json");
-                    var products = await JsonSerializer.DeserializeAsync<List<Product>>(ProductsData);
-                    if (products != null && products.Any())
+                    var prods = await JsonSerializer.DeserializeAsync<List<Product>>(ProductsData);
+                    if (prods != null && prods.Any())
                     {
-                        await _storeDbContext.Products.AddRangeAsync(products);
+                        await _storeDbContext.Products.AddRangeAsync(prods);
                     }
                 }
 
-                await _storeDbContext.SaveChangesAsync();
+                if (!_storeDbContext.Set<DeliveryMethod>().Any())
+                {
+                    var deliveryMethod = File.OpenRead(@"../InfraStracture/PersistenceLayer/Data/DataSeed/delivery.json");
+                    var deliveryMethodObjs = await JsonSerializer.DeserializeAsync<List<DeliveryMethod>>(deliveryMethod);
+                    if (deliveryMethodObjs != null && deliveryMethodObjs.Any())
+                    {
+                        await _storeDbContext.AddRangeAsync(deliveryMethodObjs);
+                    }
+                }
+
+                    await _storeDbContext.SaveChangesAsync();
             }
             catch (Exception)
             {
-                //todo
+                Console.WriteLine($"DataSeeding failed ");
+            
             }
         }
 
@@ -107,7 +119,7 @@ namespace PersistenceLayer
             }
             catch(Exception)
             {
-                throw;
+                Console.WriteLine($"DataSeeding failed ");
             }
         }
     }

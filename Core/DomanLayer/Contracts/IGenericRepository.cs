@@ -17,7 +17,8 @@ namespace DomanLayer.Contracts
         Task<IEnumerable<TEntity>> GetAsync(ISpecifications<TEntity, Tkey> specifications);
 
         Task<int> CountAsync(ISpecifications<TEntity, Tkey> specifications);
-       
+        //object GetByIdAsync(global::Shared.DTOS.OrderDTOS.OrderDto orderDto, object deliveryMethodId);
+
 
         #endregion
     }

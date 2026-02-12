@@ -21,12 +21,40 @@ namespace ServiceLayer
         IConfiguration _configuration)
         : IAuthenticationService
     {
+        public async Task<bool> CheckEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            return user != null;
+        }
+
+        public async Task<UserDto> GetCurrentUser(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is null) throw new UserNotFoundException(email);
+
+            return new UserDto()
+            {
+                Email = user.Email!,
+                DisplayName = user.DisplayName,
+                Token = await CreateTokenAsync(user)
+            };
+        }
+
+        public async Task<Address> GetUserAddress(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is null) throw new UserNotFoundException(email);
+
+            return user.UserAddress!;
+        }
+
         public async Task<UserDto> LoginAsync(LoginDto loginDto)
         {
             //chek if email exist
             var User = await _userManager.FindByEmailAsync(loginDto.Email);
             if (User is null)
                 throw new UserNotFoundException(loginDto.Email);
+
             //check password
             var IsPasswordValid = await _userManager.CheckPasswordAsync(User, loginDto.Password);
             if (IsPasswordValid)
@@ -65,7 +93,21 @@ namespace ServiceLayer
                 throw new BadRequestException(Errors);
             }
         }
-         
+
+        public async Task<Address> UpdateCurrentUserAddress(string email, Address address)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is null) throw new UserNotFoundException(email);
+
+            // Update
+            user.UserAddress = address;
+
+            await _userManager.UpdateAsync(user);
+
+            // return the new address
+            return user.UserAddress!;
+        }
+
         private async Task<string> CreateTokenAsync(ApplicationUser user)
         {
             var claims = new List<Claim>()

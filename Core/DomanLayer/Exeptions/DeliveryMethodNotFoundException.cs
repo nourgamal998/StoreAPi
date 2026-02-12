@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomanLayer.Exeptions
 {
-    public abstract class NotFoundExeption (string Message)
-                                         : Exception(Message)
-    {
+    public sealed class DeliveryMethodNotFoundException(int id ) 
+        : NotFoundException($"Delivery method with id {id} was not found.");
 
-    }
+  
 }

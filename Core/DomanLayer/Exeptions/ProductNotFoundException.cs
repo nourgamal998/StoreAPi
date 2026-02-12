@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomanLayer.Exeptions
 {
-    public sealed class UserNotFoundException(string Email) 
-        : NotFoundException ($"User with Email :{Email} was not found.")
+    public class ProductNotFoundException(int id ) : NotFoundException($"Product with Id : {id} Is Not Found")
     {
     }
 }

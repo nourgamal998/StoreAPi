@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DomanLayer.Exeptions
 {
-    public class BasketNotFoundExeption (string id)
-               : NotFoundExeption($"Basket with Id : {id} Is Not Found")
+    public abstract class NotFoundException (string Message)
+                                         : Exception(Message)
     {
+
     }
 }

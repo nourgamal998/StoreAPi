@@ -7,7 +7,7 @@ using DomanLayer.Models.ProductModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace PersistenceLayer.Data.Configations
+namespace PersistenceLayer.Data.Configrations
 {
     public class  ProductConfigurations : IEntityTypeConfiguration<Product>
     {
@@ -27,9 +27,6 @@ namespace PersistenceLayer.Data.Configations
             builder.Property(p => p.Price).HasColumnType("decimal(10,2)");
         }
 
-        private void HasColumnType(string v)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

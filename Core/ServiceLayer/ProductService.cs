@@ -35,7 +35,7 @@ namespace ServiceLayer.Services
             var countSpecs = new ProductCountSpecifications(queryParams);
             var totalCount = await repo.CountAsync(countSpecs);
 
-            return new PaginatedResult<ProductDto>(queryParams.PageIndex,queryParams.pageSize
+            return new PaginatedResult<ProductDto>(queryParams.PageIndex,queryParams.PageSize
                                                                         , totalCount, mappedproducts);
 
         }
@@ -44,7 +44,7 @@ namespace ServiceLayer.Services
         {
             var specs = new ProductWithBrandAndTypeSpecifications(id);
             var product = await _unitOfWork.GetRepository<Product, int>().GetByIdAsync(id);
-            if ( product is null) throw new ProductNotFoundExeption(id);
+            if ( product is null) throw new ProductNotFoundException(id);
             return _mapper.Map<ProductDto>(product);
         }
 

@@ -53,10 +53,10 @@ namespace PresentationLayer.Controllers
 
         [Authorize]
         [HttpGet("Address")]
-        public async Task<ActionResult<Address>> GetCurrentUserAdress()
+        public async Task<ActionResult<Address>> GetCurrentUserAddress()
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
-            var address = await _serviceManager.AuthenticationService.GetUserAdress(email!);
+            var address = await _serviceManager.AuthenticationService.GetUserAddress(email!);
             return Ok(address);     
         }
 

@@ -29,7 +29,7 @@ namespace ServiceLayer
             if (Basket is not null)
             return _mapper.Map<BasketDto>(Basket);
 
-            else throw new BasketNotFoundExeption(Key);
+            else throw new BasketNotFoundException(Key);
         }
     }
 }
