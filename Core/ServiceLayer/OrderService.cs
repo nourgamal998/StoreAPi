@@ -54,7 +54,7 @@ namespace ServiceLayer
 
             //Subtotal
             var subtotal = orderItems.Sum(i => i.Price * i.Quantity);
-
+            string? paymentIntId = basket.PaymentIntentId?.ToString();
             //Create Order Object
             var order = new Order(email, orderAddress, deliveryMethod, orderItems, subtotal,paymentIntId);
 

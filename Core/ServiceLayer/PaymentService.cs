@@ -66,7 +66,7 @@ namespace ServiceLayer.Services
                 {
                     Amount=basketAmount,
                 };
-                object value = await paymentServie.UpdateAsync(basket.PaymentIntentId, options);
+                object value = await paymentServie.UpdateAsync(basket.PaymentIntentId.ToString(), options);
                 
             }
             await _basketRepository.CreatOrUpdateBasketAsync(basket);

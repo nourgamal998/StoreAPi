@@ -20,6 +20,7 @@ namespace PresentationLayer.Controllers
             var products = await _serviceManager.ProductService.GetAllProductsAsync(queryParams);
             return Ok(products);
 
+
         }
 
         //Get Product By Id

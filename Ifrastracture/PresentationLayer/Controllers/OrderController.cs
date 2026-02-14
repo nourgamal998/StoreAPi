@@ -10,6 +10,8 @@ using Shared.DTOS.OrderDTOS;
 
 namespace PresentationLayer.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class OrderController (IServiceManager _serviceManager) : ApiBaseControllers
     {
         [Authorize]

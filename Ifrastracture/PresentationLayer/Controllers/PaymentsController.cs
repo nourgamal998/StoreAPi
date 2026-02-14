@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Controllers;
 using ServiceAbstractionlayer;
 using ServiceApstractionLayer;
-using Shared.DTOS.BasketDtos;
 using Shared.DTOS.BasketDTOS;
 using System;
 using System.Collections.Generic;
@@ -11,20 +10,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using ServiceLayer;
 
-namespace Peresentation.Controllers
+namespace PresentationLayer.Controllers
 {
-    public class PaymentsController(IServiceManager _serviceManager) :BasketController
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PaymentsController : BasketController
     {
+        private readonly IServiceManager _serviceManager;
+
+        public PaymentsController(IServiceManager serviceManager) : base(serviceManager)
+        {
+            _serviceManager = serviceManager;
+        }
+
         [Authorize]
         [HttpPost("{basketId}")]
         public async Task<ActionResult<BasketDto>> CreateOrUpdatePaymentIntent(string basketId)
         {
-            var basket =await _serviceManager.PaymentService.CreateOrUpdatePaymentIntent(basketId);
+            var basket =  _serviceManager.PaymentService;
             return Ok(basket);
         }
-
-
 
         #region Copied
         //stripe listen --forward-to http://localhost:7040/api/Payments/webhook
@@ -39,11 +46,8 @@ namespace Peresentation.Controllers
                 Request.Headers["Stripe-Signature"]);
 
             return new EmptyResult();
-
-
         }
 
         #endregion
-
     }
 }

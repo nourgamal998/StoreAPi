@@ -13,20 +13,20 @@ namespace PresentationLayer.Controllers
     [Route("api/[Controller]")]
     public class BasketController (IServiceManager _serviceManager): ControllerBase
     {
-        [HttpGet]
+        [HttpGet("")]
         public async Task<ActionResult<BasketDto>> GetBasket(string key)
         { 
          var basket = await _serviceManager.BasketService.GetBasketAsync(key);
            return Ok(basket);
 
         }
-        [HttpPost]
+        [HttpPost("")]
         public async Task<ActionResult<BasketDto>> CreateOrUpdateBasket(BasketDto basket) 
         {
             var result = await _serviceManager.BasketService.CreateOrUpdateBasketAsync(basket);
             return Ok(result);
         }
-        [HttpDelete]
+        [HttpDelete("")]
         public async Task<ActionResult> DeleteBasket(string key)
         {
             var res = await _serviceManager.BasketService.DeleteBasketAsync(key);
