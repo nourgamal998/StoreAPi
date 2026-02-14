@@ -13,7 +13,7 @@ namespace Shared.DTOS.OrderDTOS
         public DateTimeOffset OrderDate { get; set; }
         public AddressDto Address { get; set; } = null!;
         public string DeliveryMethod { get; set; } = null!; //string name 
-        public string OrdderStutes { get; set; }
+        public string OrderStatus { get; set; }
         public ICollection <OrderItemDto> Items { get; set; } = [];
         public decimal SubTotal { get; set; }
         public decimal Total { get; set; }

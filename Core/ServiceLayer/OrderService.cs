@@ -5,7 +5,8 @@ using DomanLayer.Contracts;
 using DomanLayer.Exeptions;
 using ServiceApstractionLayer;
 using Shared.DTOS.OrderDTOS;
-
+using ServiceLayer.Specifications.OrderModuleSpesification;
+using Stripe;
 
 namespace ServiceLayer
 {
@@ -25,7 +26,7 @@ namespace ServiceLayer
 
             //Create order items
             List<OrderItem> orderItems = [];
-            var productRepo = _unitOfWork.GetRepository<Product, int>();
+            var productRepo = _unitOfWork.GetRepository<DomanLayer.Models.ProductModels.Product, int>();
             foreach (var basketItem in basket.Items)
             {
                 var OriginalProduct = await productRepo.GetByIdAsync(basketItem.Id)
@@ -55,13 +56,33 @@ namespace ServiceLayer
             var subtotal = orderItems.Sum(i => i.Price * i.Quantity);
 
             //Create Order Object
-            var order = new Order(email, orderAddress, deliveryMethod, orderItems, subtotal);
-            
+            var order = new Order(email, orderAddress, deliveryMethod, orderItems, subtotal,paymentIntId);
+
+
             await _unitOfWork.GetRepository<Order,Guid>().AddAsync(order);
             await _unitOfWork.SaveChangesAsync();
 
             return _mapper.Map<OrderToReturnDto>(order);
         }
+
+        public async Task<IEnumerable<OrderToReturnDto>> GetAllOrdersAsync(string email)
+        {
+           var specs =new OrderSpesifications(email);
+           var Orders = await _unitOfWork.GetRepository<Order,Guid>().GetAllAsync(specs);
+            return _mapper.Map< IEnumerable < OrderToReturnDto >>(Orders);
+        }
+        public Task<OrderToReturnDto> GetOrderByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<DeliveryMethodDto>> GetDeliveryMethodsAsync()
+        {
+          var DeliveryMethods = await _unitOfWork.GetRepository<DeliveryMethod, int>().GetAllAsync();
+            return _mapper.Map< IEnumerable<DeliveryMethodDto>>(DeliveryMethods);
+        }
+
+       
     }
 }
 

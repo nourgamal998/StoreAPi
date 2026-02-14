@@ -1,5 +1,4 @@
-﻿
-using Shared.DTOS.OrderDTOS;
+﻿using Shared.DTOS.OrderDTOS;
 
 namespace ServiceApstractionLayer
 {
@@ -7,7 +6,13 @@ namespace ServiceApstractionLayer
     {
         //Create Order 
         Task<OrderToReturnDto> CreateOrderAsync(OrderDto orderDto, string email);
-        //orderDto , email =>
+        
+        //GetDeliveryMethod
+        Task<IEnumerable<DeliveryMethodDto>> GetDeliveryMethodsAsync();
+
+        //getAllOrders of spesific customer 
+        Task<IEnumerable<OrderToReturnDto>> GetAllOrdersAsync(string email);
+        Task<OrderToReturnDto> GetOrderByIdAsync(Guid id);
 
     }
 }

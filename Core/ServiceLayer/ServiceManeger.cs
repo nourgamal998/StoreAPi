@@ -14,25 +14,29 @@ using ServiceLayer.Services;
 namespace ServiceLayer
 {
     public class ServiceManeger
-        (IUnitOfWork _unitOfWork ,IMapper mapper ,
+        (IUnitOfWork _unitOfWork ,IMapper _mapper ,
         IBasketReposatory _basketReposatory ,
         UserManager<ApplicationUser> userManager,
         IConfiguration _configuration) : IServiceManager
 
     {
         private readonly Lazy<IProductService> _lazyproductService =
-        new Lazy<IProductService>(() => new ProductService(_unitOfWork, mapper));
+        new Lazy<IProductService>(() => new ProductService(_unitOfWork, _mapper));
         public IProductService ProductService => _lazyproductService.Value;
 
 
         private readonly Lazy<IBasketService> _lazyBasketService =
-        new Lazy<IBasketService>(() => new BasketService(_basketReposatory, mapper));
+        new Lazy<IBasketService>(() => new BasketService(_basketReposatory, _mapper));
         public IBasketService BasketService => _lazyBasketService.Value;
 
 
         private readonly Lazy<IAuthenticationService> _lazyAuthenticationService =
        new Lazy<IAuthenticationService>(() => new AuthenticationService( userManager, _configuration));
         public IAuthenticationService AuthenticationService => _lazyAuthenticationService.Value;
+
+        private readonly Lazy<IOrderService> _lazyOrderService =
+      new Lazy<IOrderService>(() => new OrderService(_mapper,_basketReposatory,_unitOfWork ));
+        public IOrderService OrderService => _lazyOrderService.Value;
 
 
     }

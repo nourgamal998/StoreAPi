@@ -11,6 +11,7 @@ namespace Shared.DTOS.OrderDTOS
         public string BasketId { get; set; } = null!;
         public int DeliveryMethodId { get; set; }
         public AddressDto Address { get; set; } = null!;
+        public object ShipToAddress { get; set; }
     }
 
    

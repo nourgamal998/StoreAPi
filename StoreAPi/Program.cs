@@ -1,21 +1,9 @@
-using DomanLayer.Contracts;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens.Experimental;
+
 using PersistenceLayer;
-using PersistenceLayer.Data;
-using PersistenceLayer.Data.PersistenceLayer.Data;
-using PersistenceLayer.Repositoreis;
-using ServiceApstractionLayer;
+
 using ServiceLayer;
-using StoreAPi.CustomMiddleweres;
-using Shared.ErrorModels;
-using StoreAPi.Factories;
 using StoreAPi.Extentions;
-using Microsoft.Identity.Client;
-using Microsoft.AspNetCore.Identity;
-using DomanLayer.Models.Identity_models;
-using PersistenceLayer.Identity;
+
 
 namespace StoreAPi
 {

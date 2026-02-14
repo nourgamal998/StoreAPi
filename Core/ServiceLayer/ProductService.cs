@@ -3,7 +3,7 @@ using DomanLayer.Contracts;
 using DomanLayer.Exeptions;
 using DomanLayer.Models.ProductModels;
 using ServiceApstractionLayer;
-using ServiceLayer.Specifications;
+using ServiceLayer.Specifications.ProductModuleSpesification;
 using Shared;
 using Shared.DTOS.ProductDTOS;
 namespace ServiceLayer.Services

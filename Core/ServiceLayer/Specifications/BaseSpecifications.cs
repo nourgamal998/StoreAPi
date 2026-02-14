@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using DomanLayer.Contracts;
 using DomanLayer.Models;
 
-namespace ServiceLayer.Specifications
+namespace DomanLayer.Specifications//ServiceLayer.Specifications
 {
     public class BaseSpecifications<TEntity, Tkey> : ISpecifications<TEntity, Tkey>
         where TEntity : BaseEntity<Tkey>

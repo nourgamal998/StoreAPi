@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using DomanLayer.Contracts;
 using Microsoft.EntityFrameworkCore;
 using PersistenceLayer.Data.PersistenceLayer.Data;
@@ -43,6 +39,11 @@ namespace PersistenceLayer.Repositoreis
         public async Task<int> CountAsync(ISpecifications<TEntity, Tkey> specifications)
         {
             return await SpecificationEvaluator.CreateQuery(_DbContect.Set<TEntity>(), specifications).CountAsync();
+        }
+
+        public Task<IEnumerable<TEntity>> GetAllAsync(ISpecifications<TEntity, Tkey> specs)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

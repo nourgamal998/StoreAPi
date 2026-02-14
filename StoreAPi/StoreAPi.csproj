@@ -28,4 +28,9 @@
     <Folder Include="Wwwroot\images\products\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml.user" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml.user" />
+  </ItemGroup>
+
 </Project>
